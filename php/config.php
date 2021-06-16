@@ -2,7 +2,7 @@
   $hostname = "localhost";
   $username = "root";
   $password = "";
-  $dbname = "percobaan_1";
+  $dbname = "chat_app_ajax";
 
   $conn = mysqli_connect($hostname, $username, $password, $dbname);
   if(!$conn){

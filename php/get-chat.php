@@ -11,26 +11,29 @@
         $query = mysqli_query($conn, $sql);
         if(mysqli_num_rows($query) > 0){
             while($row = mysqli_fetch_assoc($query)){
-                $mysqldate = $row['date'];
+                
+                $mysqldate = $row['timestamp'];
                 $phpdate = strtotime( $mysqldate );
-                $mysqldate = date( 'd F Y', $phpdate );
+                // $calendarStamp = date( 'd F Y', $phpdate);
+                // hour stamp
+                $mysqldate = date( 'H.i', $phpdate );
+                
                 if($row['outgoing_msg_id'] === $outgoing_id){
-                    $output .= '<div class="chat outgoing">
-                                <div class="details">
-                                    <p>'. $row['msg'] .'</p>
-                                </div>
-                                </div>
-                                <div class="right-position">
-                                <p style="margin-left:40%">'.$mysqldate.'</p>
-                                </div>';
+                    $output .= '
+                    <div class="chat outgoing">
+                    <div class="details">
+                    <p>'. $row['msg'] .'</p>
+                    '.$mysqldate.'
+                    </div>
+                    </div>';
                 }else{
                     $output .= '<div class="chat incoming">
                                 <img src="php/images/'.$row['img'].'" alt="">
                                 <div class="details">
                                     <p>'. $row['msg'] .'</p>
+                                    '.$mysqldate.'
                                     </div>
-                                    </div>
-                                    <p style="margin-left:40%">'.$mysqldate.'</p>';
+                                    </div>';
                 }
             }
         }else{
